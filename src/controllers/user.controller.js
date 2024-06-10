@@ -6,6 +6,10 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from 'jsonwebtoken'
 
 
+//generating accesstoken
+
+  
+
 //register user
 const registerUser = asyncHandler(async (req, res) => {
     //get user detail from frontend
@@ -62,7 +66,69 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
 
+  //login user
+  const loginUser = asyncHandler(async (req, res) => {
+    //req.body se data
+    //username email password hai ya nahi
+    //find the user
+    //password check kro
+    //access and refresh token bnao
+    //send cookies
   
+    const { email, password } = req.body;
+    console.log(username,email)
+  
+    if (!username && !email) {
+      throw new ApiError(400, "username & email is required");
+    }
+  
+    const user = await User.findOne({
+      $or: [{ email }],
+    });
+  
+    if (!user) {
+      throw new ApiError(404, "User doesn't exist");
+    }
+  
+    const isPasswordCorrect = await user.isPasswordCorrect(password);
+  
+    if (!isPasswordCorrect) {
+      throw new ApiError(401, "Password Incorrect");
+    }
+  
+    const accessToken = user.generateAccessToken();
+  
+    //since we are not having the refresh token in the previous user so we will call once again for the user
+    const loggedInUser = await User.findById(user._id).select(
+      "-password"
+    );
+  
+    //cookies sending part so we need some ooptions
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+  
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .json(
+        new ApiResponse(
+          200,
+          {
+            user: loggedInUser,
+           accessToken,
+          },
+          "User logged in successfully"
+        )
+      );
+  });
+
+
+  
+
+
+
 
 
   export {registerUser}
