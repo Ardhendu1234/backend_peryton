@@ -126,9 +126,23 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
   
+//logout route is done
+const logOutUser = asyncHandler(async (req, res) => {
+    await User.findByIdAndUpdate(
+      req.user._id,
+      
+    );
+  
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+  
+    return res
+    .status(200)
+    .clearCookie("accessToken",options)
+    .json(new ApiResponse(200,{},"user Logged Out successfully"))
+  });
 
 
-
-
-
-  export {registerUser}
+  export {registerUser,loginUser,logOutUser}
