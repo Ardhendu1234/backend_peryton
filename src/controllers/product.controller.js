@@ -104,6 +104,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   
   // Get all products
+
 const getAllProducts = asyncHandler(async (req, res) => {
     // Find all products
     const products = await Product.find();
@@ -131,31 +132,6 @@ const getProduct = asyncHandler(async (req, res) => {
       .json(new ApiResponse(200, product, "Product fetched successfully"));
   });
 
-  
-  // Update stock of a product (admin)
-const updateStock = asyncHandler(async (req, res) => {
-    // Find the product by ID
-    const product = await Product.findById(req.params.id);
-  
-    // If product is not found, throw an error
-    if (!product) {
-      throw new ApiError(404, "Product not found");
-    }
-  
-    // Update the stock
-    product.stock = req.body.stock;
-  
-    // Save the updated product
-    const updatedProduct = await product.save();
-  
-    // Return the updated product
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(200, updatedProduct, "Product stock updated successfully")
-      );
-  });
-
 
   // Get product type enums
 const getProductTypeEnums = asyncHandler(async (req, res) => {
@@ -170,30 +146,13 @@ const getProductTypeEnums = asyncHandler(async (req, res) => {
    });
 
 
-//get all product names in backend
-const getAllProductNames = asyncHandler(async (req, res) => {
-    try {
-      // Find all product names and select only the 'name' field
-      const productNames = await Product.find({}, 'name');
-  
-      // Return the product names
-      return res
-        .status(200)
-        .json(
-          new ApiResponse(200, productNames, 'Product names fetched successfully')
-        );
-    } catch (err) {
-      throw new ApiError(500, 'Internal Server Error');
-    }
-  });
+
 
   export {
     getProduct,
-    updateStock,
     getAllProducts,
     deleteProduct,
     updateProduct,
     addProduct,
     getProductTypeEnums,
-    getAllProductNames,
   }
