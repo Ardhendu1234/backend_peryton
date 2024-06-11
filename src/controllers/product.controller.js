@@ -15,6 +15,18 @@ const addProduct = asyncHandler(async (req, res) => {
     if (!name || !description || !price || !productType || !stock) {
       throw new ApiError(400, "All fields are required");
     }
+
+   
+
+    const imageLocalPath=req.file?.path
+    console.log(imageLocalPath)
+
+    if(!imageLocalPath){
+      throw new ApiError(400, "Image is required");
+    }
+
+    const imageUrls=await uploadOnCloudinary(imageLocalPath)
+    console.log(imageUrls)
   
     // Create a new product instance
     const newProduct = new Product({
@@ -23,6 +35,7 @@ const addProduct = asyncHandler(async (req, res) => {
       price,
       productType,
       stock,
+      imageUrls:imageUrls?.url
     });
 
     

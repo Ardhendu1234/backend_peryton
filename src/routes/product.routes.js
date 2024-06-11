@@ -15,7 +15,7 @@ productRouter.route("/deleteProduct").post(deleteProduct)
 productRouter.route("/updateProduct").post(updateProduct)
 
 productRouter.route("/addProduct").post(
-    upload.single("image"),
+    upload.single("imageUrls"),
     addProduct)
 
 
