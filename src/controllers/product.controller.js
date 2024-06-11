@@ -3,7 +3,6 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import jwt from 'jsonwebtoken'
 
 
 // Add a new product (admin)
@@ -16,17 +15,20 @@ const addProduct = asyncHandler(async (req, res) => {
       throw new ApiError(400, "All fields are required");
     }
 
-   
+    const productExist=await Product.findOne({name})
+    if(productExist){
+      throw new ApiError(400, "Product already exist");
+    }
 
     const imageLocalPath=req.file?.path
-    console.log(imageLocalPath)
+
 
     if(!imageLocalPath){
       throw new ApiError(400, "Image is required");
     }
 
     const imageUrls=await uploadOnCloudinary(imageLocalPath)
-    console.log(imageUrls)
+
   
     // Create a new product instance
     const newProduct = new Product({
@@ -60,7 +62,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     const { name, description, price, productType, stock } = req.body;
   
     // Find the product by ID
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findOne({name});
   
     // If product is not found, throw an error
     if (!product) {
@@ -68,7 +70,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
   
     // Update the product fields
-    product.name = name || product.name;
+    product.name = name
     product.description = description || product.description;
     product.price = price || product.price;
     product.productType = productType || product.productType;
@@ -168,6 +170,23 @@ const getProductTypeEnums = asyncHandler(async (req, res) => {
     }
    });
 
+//get all product names in backend
+   const getAllProductNames = asyncHandler(async (req, res) => {
+    try {
+      // Find all product names and select only the 'name' field
+      const productNames = await Product.find({}, 'name');
+  
+      // Return the product names
+      return res
+        .status(200)
+        .json(
+          new ApiResponse(200, productNames, 'Product names fetched successfully')
+        );
+    } catch (err) {
+      throw new ApiError(500, 'Internal Server Error');
+    }
+  });
+
   export {
     getProduct,
     updateStock,
@@ -176,4 +195,5 @@ const getProductTypeEnums = asyncHandler(async (req, res) => {
     updateProduct,
     addProduct,
     getProductTypeEnums,
+    getAllProductNames,
   }
