@@ -10,9 +10,10 @@ productRouter.route("/getProductType").get(getProductTypeEnums)
 productRouter.route("/getAllProduct").get(getAllProducts)
 productRouter.route("/getAllProductNames").get(getAllProductNames)
 
+productRouter.route("/deleteProduct").delete(deleteProduct)
+
 productRouter.route("/getProduct").post(getProduct)
 productRouter.route("/updateStock").post(updateStock)
-productRouter.route("/deleteProduct").post(deleteProduct)
 productRouter.route("/updateProduct").post(updateProduct)
 
 productRouter.route("/addProduct").post(

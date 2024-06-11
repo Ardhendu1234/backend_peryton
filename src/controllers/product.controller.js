@@ -55,6 +55,7 @@ const addProduct = asyncHandler(async (req, res) => {
         new ApiResponse(201, savedProduct, "Product added successfully")
       );
   });
+
   
   // Update a product (admin)
 const updateProduct = asyncHandler(async (req, res) => {
@@ -87,25 +88,20 @@ const updateProduct = asyncHandler(async (req, res) => {
         new ApiResponse(200, updatedProduct, "Product updated successfully")
       );
   });
+
   
   // Delete a product (admin)
 const deleteProduct = asyncHandler(async (req, res) => {
-    // Find the product by ID
-    const product = await Product.findById(req.params.id);
-  
-    // If product is not found, throw an error
-    if (!product) {
-      throw new ApiError(404, "Product not found");
-    }
-  
+  const {_id}=req.body
     // Delete the product
-    await product.remove();
+    await Product.findByIdAndDelete(_id)
   
     // Return a success message
     return res
       .status(200)
       .json(new ApiResponse(200, null, "Product deleted successfully"));
   });
+
   
   // Get all products
 const getAllProducts = asyncHandler(async (req, res) => {
@@ -117,6 +113,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(200, products, "Products fetched successfully"));
   });
+
   
   // Get a single product
 const getProduct = asyncHandler(async (req, res) => {
@@ -133,6 +130,7 @@ const getProduct = asyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(200, product, "Product fetched successfully"));
   });
+
   
   // Update stock of a product (admin)
 const updateStock = asyncHandler(async (req, res) => {
