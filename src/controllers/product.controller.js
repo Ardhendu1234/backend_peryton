@@ -59,10 +59,11 @@ const addProduct = asyncHandler(async (req, res) => {
   // Update a product (admin)
 const updateProduct = asyncHandler(async (req, res) => {
     // Destructure required fields from req.body
-    const { name, description, price, productType, stock } = req.body;
+    const { _id ,name, description, price, productType, stock } = req.body
+    console.log(req.body)
   
     // Find the product by ID
-    const product = await Product.findOne({name});
+    const product = await Product.findById(_id);
   
     // If product is not found, throw an error
     if (!product) {
@@ -70,7 +71,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
   
     // Update the product fields
-    product.name = name
+    product.name = name || product.name
     product.description = description || product.description;
     product.price = price || product.price;
     product.productType = productType || product.productType;
@@ -170,8 +171,9 @@ const getProductTypeEnums = asyncHandler(async (req, res) => {
     }
    });
 
+
 //get all product names in backend
-   const getAllProductNames = asyncHandler(async (req, res) => {
+const getAllProductNames = asyncHandler(async (req, res) => {
     try {
       // Find all product names and select only the 'name' field
       const productNames = await Product.find({}, 'name');

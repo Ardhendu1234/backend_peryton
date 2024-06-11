@@ -8,7 +8,7 @@ const productRouter=Router();
 
 productRouter.route("/getProductType").get(getProductTypeEnums)
 productRouter.route("/getAllProduct").get(getAllProducts)
-productRouter.route("/getAllProductName").get(getAllProductNames)
+productRouter.route("/getAllProductNames").get(getAllProductNames)
 
 productRouter.route("/getProduct").post(getProduct)
 productRouter.route("/updateStock").post(updateStock)

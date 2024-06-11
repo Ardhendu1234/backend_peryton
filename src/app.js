@@ -8,7 +8,7 @@ const app=express();
     origin:process.env.CORS_ORIGIN,
     credentials:true
  }))
- app.use(express.json({limit:"16kb"})) //for limiting the json data incoming
+ app.use(express.json()) //for limiting the json data incoming
  app.use(express.urlencoded({extended:true,limit:"16kb"}))  //for configuring the data coming from url
  app.use(express.static("public"))
  app.use(cookieParser()) //for accessing cookies through req  and setting the cookies in browser 
