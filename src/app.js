@@ -15,7 +15,7 @@ const app=express();
 
 
  import userRouter from "./routes/user.routes.js"
- import productRouter from "./product.routes.js"
+ import productRouter from "./routes/product.routes.js"
 
 
 

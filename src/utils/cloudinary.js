@@ -23,7 +23,7 @@ const uploadOnCloudinary = async (localFilePath) => {
         })
         // file has been uploaded successfull
         //console.log("file is uploaded on cloudinary ", response.url);
-         fs.unlinkSync(localFilePath)
+         //fs.unlinkSync(localFilePath)
         // console.log(`cloud_name:${process.env.CLOUDINARY_CLOUD_NAME}`)
         // console.log(`api_key:${process.env.CLOUDINARY_API_KEY}`)
         // console.log(`api_secret:${process.env.CLOUDINARY_API_SECRET}`)
