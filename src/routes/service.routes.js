@@ -4,21 +4,21 @@ import {
     getAllServices,
     deleteService,
     updateService,
-    addService} from "../controllers/service.controller.js"
+    addService } from "../controllers/service.controller.js"
 import { upload } from "../middlewares/mutler.middleware.js"
 
 
-const ServiceRouter=Router();
+const serviceRouter=Router();
 
 
-ServiceRouter.route("/getAllServices").get(getAllServices)
+serviceRouter.route("/getAllServices").get(getAllServices)
 
-ServiceRouter.route("/deleteService").delete(deleteService)
+serviceRouter.route("/deleteService").delete(deleteService)
 
-ServiceRouter.route("/getService").post(getService)
-ServiceRouter.route("/updateService").post(updateService)
+serviceRouter.route("/getService").post(getService)
+serviceRouter.route("/updateService").post(updateService)
 
-ServiceRouter.route("/addService").post(upload.single("imageUrls"),addService)
+serviceRouter.route("/addService").post(upload.single("imageUrls"),addService)
 
 
-export default ServiceRouter
+export default serviceRouter

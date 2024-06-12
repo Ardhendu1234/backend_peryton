@@ -1,3 +1,4 @@
+import { response } from "express";
 import { Product } from "../models/product.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -9,6 +10,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 const addProduct = asyncHandler(async (req, res) => {
     // Destructure required fields from req.body
     const { name, description, price, productType, stock } = req.body;
+    
   
     // Check if all required fields are provided
     if (!name || !description || !price || !productType || !stock) {
@@ -61,7 +63,6 @@ const addProduct = asyncHandler(async (req, res) => {
 const updateProduct = asyncHandler(async (req, res) => {
     // Destructure required fields from req.body
     const { _id ,name, description, price, productType, stock } = req.body
-    console.log(req.body)
   
     // Find the product by ID
     const product = await Product.findById(_id);
@@ -92,7 +93,8 @@ const updateProduct = asyncHandler(async (req, res) => {
   
   // Delete a product (admin)
 const deleteProduct = asyncHandler(async (req, res) => {
-  const {_id}=req.body
+  console.log(req.query._id)
+  const {_id}=req.query
     // Delete the product
     await Product.findByIdAndDelete(_id)
   
@@ -137,6 +139,7 @@ const getProduct = asyncHandler(async (req, res) => {
 const getProductTypeEnums = asyncHandler(async (req, res) => {
     try {
       const productTypeEnum = Product.schema.path('productType').enumValues;
+      
       return res
         .status(200)
         .json(new ApiResponse(200, productTypeEnum, 'Product type enums fetched successfully'));

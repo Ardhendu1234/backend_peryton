@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 const app=express();
 
  app.use(cors({
-    origin:process.env.CORS_ORIGIN,
+    origin:true,
     credentials:true
  }))
  app.use(express.json()) //for limiting the json data incoming
@@ -16,11 +16,13 @@ const app=express();
 
  import userRouter from "./routes/user.routes.js"
  import productRouter from "./routes/product.routes.js"
+ import serviceRouter from "./routes/service.routes.js"
 
 
 
 //routes decalaration
 app.use("/api/v1/users",userRouter)
 app.use("/ecommerce",productRouter)
+app.use("/service",serviceRouter)
 
  export {app}
