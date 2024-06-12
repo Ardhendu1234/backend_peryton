@@ -17,6 +17,7 @@ const app=express();
  import userRouter from "./routes/user.routes.js"
  import productRouter from "./routes/product.routes.js"
  import serviceRouter from "./routes/service.routes.js"
+ import categoryRouter from './routes/category.routes.js';
 
 
 
@@ -24,5 +25,6 @@ const app=express();
 app.use("/api/v1/users",userRouter)
 app.use("/ecommerce",productRouter)
 app.use("/service",serviceRouter)
+app.use("/category",categoryRouter)
 
  export {app}

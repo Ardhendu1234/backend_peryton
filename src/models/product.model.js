@@ -15,18 +15,6 @@ const productSchema = new mongoose.Schema({
   },
   productType: {
     type: String,
-    enum: [
-      'FPV Goggles',
-      'Frames',
-      'Light Controllers',
-      'Receivers',
-      'Transmitters',
-      'VTX',
-      'Cameras',
-      'Antennas',
-      'Propellers',
-      'Motors',
-    ],
     required: true,
   },
   imageUrls: {

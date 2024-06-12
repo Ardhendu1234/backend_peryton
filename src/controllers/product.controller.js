@@ -1,4 +1,3 @@
-import { response } from "express";
 import { Product } from "../models/product.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -147,7 +146,6 @@ const getProductTypeEnums = asyncHandler(async (req, res) => {
       throw new ApiError(500, 'Internal Server Error');
     }
    });
-
 
 
 
