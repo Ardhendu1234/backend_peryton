@@ -49,9 +49,32 @@ const deleteService = asyncHandler(async (req, res) => {
     if(!deleted){
         throw new ApiError(400, "Service is not deleted");
     }
-    
+
       // Return a success message
       return res
         .status(200)
         .json(new ApiResponse(200, null, "Service deleted successfully"));
     });
+
+
+const getService = asyncHandler(async (req, res) => {
+        // Find the Service by ID
+        const service = await Service.findById(req.params.id);
+      
+        // If Service is not found, throw an error
+        if (!service) {
+          throw new ApiError(404, "Service not found");
+        }
+      
+        // Return the Service
+        return res
+          .status(200)
+          .json(new ApiResponse(200, service, "Service fetched successfully"));
+      });
+
+
+    export {
+        getService,
+        deleteService,
+        addService,
+      } 
