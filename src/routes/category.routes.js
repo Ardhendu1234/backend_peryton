@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { getCategory,
+import { getAllCategory,
     deleteCategory,
     addCategory } from "../controllers/category.controller.js"
 
 const categoryRouter=Router()
 
-categoryRouter.route("/getCategory").get(getCategory)
+categoryRouter.route("/getAllCategory").get(getAllCategory)
 categoryRouter.route("/deleteCategory").delete(deleteCategory)
 categoryRouter.route("/addCategory").post(addCategory)
 

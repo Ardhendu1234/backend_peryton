@@ -44,6 +44,7 @@ const addCategory = asyncHandler(async (req, res) => {
 
 const deleteCategory = asyncHandler(async (req, res) => {
     const { _id }=req.query
+    console.log(_id)
       // Delete the Category
       const deleted=await Category.findByIdAndDelete(_id)
     if(!deleted){
@@ -57,24 +58,19 @@ const deleteCategory = asyncHandler(async (req, res) => {
     });
 
 
-const getCategory = asyncHandler(async (req, res) => {
-        // Find the Category by ID
-        const category = await Category.findById(req.params.id);
-      
-        // If Category is not found, throw an error
-        if (!category) {
-          throw new ApiError(404, "Category not found");
-        }
-      
-        // Return the Category
-        return res
-          .status(200)
-          .json(new ApiResponse(200, category, "Category fetched successfully"));
-      });
+    const getAllCategory = asyncHandler(async (req, res) => {
+      // Find all Category
+      const category = await Category.find();
+
+      // Return the Category
+      return res
+        .status(200)
+        .json(new ApiResponse(200, category, "Category fetched successfully"));
+    });
 
 
     export {
-        getCategory,
+        getAllCategory,
         deleteCategory,
         addCategory,
       } 
