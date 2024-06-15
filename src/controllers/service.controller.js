@@ -9,6 +9,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 const addService = asyncHandler(async (req, res) => {
     // Destructure required fields from req.body
     const { name, description } = req.body;
+    console.log(name,description)
   
     // Check if all required fields are provided
     if (!name || !description ) {
@@ -87,10 +88,9 @@ const updateService = asyncHandler(async (req, res) => {
   
   // Delete a Service (admin)
 const deleteService = asyncHandler(async (req, res) => {
-  const {_id}=req.body
-    // Delete the Service
-    await Service.findByIdAndDelete(_id)
-  
+  const { _id }=req.query
+       // Delete the service
+      const deleted=await Service.findByIdAndDelete(_id)
     // Return a success message
     return res
       .status(200)

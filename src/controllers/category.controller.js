@@ -7,6 +7,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 // Add a new Category (admin)
 const addCategory = asyncHandler(async (req, res) => {
     // Destructure required fields from req.body
+    
     const { name } = req.body;
     
   
