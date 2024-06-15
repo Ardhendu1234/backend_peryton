@@ -54,36 +54,6 @@ const addService = asyncHandler(async (req, res) => {
       );
   });
 
-  
-  // Update a Service (admin)
-const updateService = asyncHandler(async (req, res) => {
-    // Destructure required fields from req.body
-    const { _id ,name, description } = req.body
-    console.log(req.body)
-  
-    // Find the Service by ID
-    const service = await Service.findById(_id);
-  
-    // If Service is not found, throw an error
-    if (!service) {
-      throw new ApiError(404, "Service not found");
-    }
-  
-    // Update the Service fields
-    service.name = name || service.name
-    service.description = description || service.description;
-    
-  
-    // Save the updated Service
-    const updatedService = await Service.save();
-  
-    // Return the updated Service
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(200, updatedService, "Service updated successfully")
-      );
-  });
 
   
   // Delete a Service (admin)
@@ -110,31 +80,10 @@ const getAllServices = asyncHandler(async (req, res) => {
       .json(new ApiResponse(200, service, "Services fetched successfully"));
   });
 
-  
-  // Get a single Service
-const getService = asyncHandler(async (req, res) => {
-    // Find the Service by ID
-    const service = await Service.findById(req.params.id);
-  
-    // If Service is not found, throw an error
-    if (!service) {
-      throw new ApiError(404, "Service not found");
-    }
-  
-    // Return the Service
-    return res
-      .status(200)
-      .json(new ApiResponse(200, service, "Service fetched successfully"));
-  });
-
-
-
 
 
   export {
-    getService,
     getAllServices,
     deleteService,
-    updateService,
     addService,
   }
