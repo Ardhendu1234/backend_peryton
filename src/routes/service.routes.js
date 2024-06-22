@@ -5,7 +5,6 @@ import { upload } from "../middlewares/mutler.middleware.js"
 
 const serviceRouter=Router();
 
-
 serviceRouter.route("/getAllServices").get(getAllServices)
 
 serviceRouter.route("/deleteService").delete(deleteService)

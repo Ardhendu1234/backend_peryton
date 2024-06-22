@@ -89,8 +89,7 @@ const updateProduct = asyncHandler(async (req, res) => {
       );
   });
 
-  
-  // Delete a product (admin)
+
 const deleteProduct = asyncHandler(async (req, res) => {
   console.log(req.query._id)
   const {_id}=req.query
@@ -105,7 +104,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   
   // Get all products
-
 const getAllProducts = asyncHandler(async (req, res) => {
     // Find all products
     const products = await Product.find();
