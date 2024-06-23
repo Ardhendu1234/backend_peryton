@@ -7,7 +7,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 // Add a new Category (admin)
 const addCategory = asyncHandler(async (req, res) => {
     // Destructure required fields from req.body
-    
+    console.log("req hit")
     const { name } = req.body;
     
   
@@ -44,14 +44,13 @@ const addCategory = asyncHandler(async (req, res) => {
   });
 
 const deleteCategory = asyncHandler(async (req, res) => {
-    const { _id }=req.query
-    console.log(_id)
-      // Delete the Category
+  // Delete the Category
+  const {_id}=req.query
+  console.log(_id)
       const deleted=await Category.findByIdAndDelete(_id)
     if(!deleted){
         throw new ApiError(400, "Category is not deleted");
     }
-
       // Return a success message
       return res
         .status(200)
